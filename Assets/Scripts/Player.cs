@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 movementVector;
+    private Vector2 movementInput;
     [SerializeField] private float speed = 1;
     private Animator anim;
+    [SerializeField] private PlayerInput playerInput;
 
-    private Interactable interactable;
-    [SerializeField] private KeyCode interactionButton;
+    [SerializeField] private InteractableObject interactable;
 
     // Start is called before the first frame update
     void Start()
@@ -20,52 +21,41 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        HandleMovementInput();
-
-        if (interactable != null && Input.GetKeyDown(interactionButton))
-        {
-            interactable.Interact();
-        }
-
         SetAniamtions();
-    }
-
-    private void HandleMovementInput()
-    {
-        movementVector.x = Input.GetAxisRaw("Horizontal");
-
-        if (movementVector.x != 0)
-        {
-            movementVector.y = 0;
-        }
-        else
-        {
-            movementVector.y = Input.GetAxisRaw("Vertical");
-        }
     }
 
     private void SetAniamtions()
     {
-        anim.SetFloat("horizontal", movementVector.x);
-        anim.SetFloat("vertical", movementVector.y);
-        anim.SetFloat("speed", movementVector.sqrMagnitude);
+        anim.SetFloat("horizontal", movementInput.x);
+        anim.SetFloat("vertical", movementInput.y);
+        anim.SetFloat("speed", movementInput.sqrMagnitude);
+    }
+
+    public void HandleMovement(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        interactable.Interact();
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = movementVector * speed;
+        rb.velocity = movementInput * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        interactable = collision.gameObject.GetComponent<Interactable>();
+        interactable = collision.gameObject.GetComponent<InteractableObject>();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Interactable>() == interactable)
+        if (collision.gameObject.GetComponent<InteractableObject>() == interactable)
             interactable = null;
     }
 }
