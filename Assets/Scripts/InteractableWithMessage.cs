@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class InteractableWithMessage : InteractableObject
 {
-    [SerializeField] private bool useObjectName;
-    [SerializeField] private string message;
+    [SerializeField] protected bool useObjectName = true;
+    [SerializeField] protected string message;
 
-    public event Action<string, string> OnInteract;
+    protected Action OnPanelInteraction;
+    public event Action<string, string, Action> OnInteract;
 
     public override void Interact()
     {
         string name = useObjectName ? gameObject.name : "";
-        OnInteract?.Invoke(name, message);
+        OnInteract?.Invoke(name, message, OnPanelInteraction);
     }
 }

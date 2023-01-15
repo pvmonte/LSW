@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
-        interactable.Interact();
+        interactable?.Interact();
     }
 
     private void FixedUpdate()

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using System;
 
 public class MessagePanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI speakerNameField;
     [SerializeField] private TextMeshProUGUI speakerMessageField;
+
+    public event Action OnInteract;
     
     void Start()
     {
@@ -21,8 +24,9 @@ public class MessagePanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Interactables_OnInteract(string name, string message)
+    private void Interactables_OnInteract(string name, string message, Action onInteract)
     {
+        OnInteract += onInteract;
         speakerNameField.text = name;
         speakerMessageField.text = message;
 
@@ -35,5 +39,7 @@ public class MessagePanel : MonoBehaviour
         speakerNameField.text = "";
         speakerMessageField.text = "";
         GameStateController.instance.ResetState();
+        OnInteract?.Invoke();
+        OnInteract = null;
     }
 }

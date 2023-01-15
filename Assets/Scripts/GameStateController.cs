@@ -9,18 +9,18 @@ public class GameStateController : MonoBehaviour
     public GameState state;
     [SerializeField] private Player _player;
     [SerializeField] private MessagePanel _messagePanel;
-    [SerializeField] public PlayerInput playerInput;    
+    [SerializeField] public PlayerInput playerInput;
 
     public Player player => _player;
     public MessagePanel messagePanel => _messagePanel;
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -39,7 +39,7 @@ public class GameStateController : MonoBehaviour
 
     public void HandleMovementInput(InputAction.CallbackContext context)
     {
-        state.HandleMovementInput(context);        
+        state.HandleMovementInput(context);
     }
 
     public void HandleInteractInput(InputAction.CallbackContext context)
@@ -74,7 +74,7 @@ public class BaseGameState : GameState
     public BaseGameState(GameStateController gameStateController)
     {
         this.gameStateController = gameStateController;
-        if(this.gameStateController.state != null) this.gameStateController.state.End();
+        if (this.gameStateController.state != null) this.gameStateController.state.End();
         Start();
     }
 
@@ -102,7 +102,7 @@ public class StandardGameState : BaseGameState
 
     public override void OnUpdate(float dt)
     {
-        
+
     }
 
 
@@ -114,7 +114,8 @@ public class StandardGameState : BaseGameState
 
     public override void HandleInteractInput(InputAction.CallbackContext context)
     {
-        gameStateController.player.Interact(context);
+        if (context.phase == InputActionPhase.Performed)
+            gameStateController.player.Interact(context);
     }
 
     public override void End()
@@ -141,7 +142,8 @@ public class ReadingGameState : BaseGameState
 
     public override void HandleInteractInput(InputAction.CallbackContext context)
     {
-        gameStateController.messagePanel.Interact(context);
+        if (context.phase == InputActionPhase.Performed)
+            gameStateController.messagePanel.Interact(context);
     }
 
     public override void End()
