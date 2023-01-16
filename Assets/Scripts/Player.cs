@@ -9,21 +9,41 @@ public class Player : MonoBehaviour
     private Vector2 movementInput;
     [SerializeField] private float speed = 1;
     private Animator anim;
-    [SerializeField] private PlayerInput playerInput;
 
-    [SerializeField] private InteractableObject interactable;
+    private Interactable interactable;
+
+    [SerializeField] private SpriteRenderer hatSlot;
+    [SerializeField] private SpriteRenderer shirtSlot;
 
     // Start is called before the first frame update
     void Start()
     {
+        var inventory = FindObjectOfType<Inventory>();
+        inventory.OnEquip += Player_OnEquip;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+    }
+
+    private void Player_OnEquip(Item item)
+    {
+        if (item is Hat)
+        {
+            EquipHat(item as Hat);
+            return;
+        }
+
+        EquipShirt(item as Shirt);
     }
 
     // Update is called once per frame
     public void Update()
     {
         SetAniamtions();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = movementInput * speed;
     }
 
     private void SetAniamtions()
@@ -42,10 +62,15 @@ public class Player : MonoBehaviour
     {
         interactable?.Interact();
     }
-
-    private void FixedUpdate()
+    
+    public void EquipHat(Hat hat)
     {
-        rb.velocity = movementInput * speed;
+        hatSlot.sprite = hat.icon;
+    }
+
+    public void EquipShirt(Shirt shirt)
+    {
+        shirtSlot.sprite = shirt.icon;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -55,7 +80,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<InteractableObject>() == interactable)
+        if (collision.gameObject.GetComponent<Interactable>() == interactable)
             interactable = null;
     }
 }

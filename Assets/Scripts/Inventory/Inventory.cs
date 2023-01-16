@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<Item> items = new List<Item>();
 
     private InventorySlot selectedSlot;
+
+    public event Action<Item> OnEquip;
 
     private void Start()
     {
@@ -49,10 +52,13 @@ public class Inventory : MonoBehaviour
         if (selectedSlot.Item is Hat)
         {
             EquipHat(selectedSlot.Item as Hat);
-            return;
+        }
+        else
+        {
+            EquipShirt(selectedSlot.Item as Shirt);
         }
 
-        EquipShirt(selectedSlot.Item as Shirt);
+        OnEquip?.Invoke(selectedSlot.Item);
     }
 
     public void EquipHat(Hat hat)
