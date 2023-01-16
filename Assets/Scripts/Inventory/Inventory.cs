@@ -30,8 +30,8 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        int index = items.IndexOf(item);
         items.Add(item);
+        int index = items.Count - 1;
         inventoryWindow.bagSlots[index].FillSlot(item);
     }
 

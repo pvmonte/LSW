@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var inventory = FindObjectOfType<Inventory>();
+        var inventory = FindObjectOfType<Inventory>(true);
         inventory.OnEquip += Player_OnEquip;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
