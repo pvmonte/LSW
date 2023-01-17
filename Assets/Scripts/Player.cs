@@ -89,14 +89,22 @@ public class Player : MonoBehaviour
         Instantiate(shirt.prefab, shirtSlot);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        interactable = collision.gameObject.GetComponent<InteractableObject>();
+        if (collision.CompareTag("Interactable"))
+        {
+            interactable = collision.gameObject.GetComponent<InteractableObject>();
+        }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<IInteractable>() == interactable)
-            interactable = null;
+        if (collision.CompareTag("Interactable"))
+        {
+            if (collision.gameObject.GetComponent<IInteractable>() == interactable)
+            {
+                interactable = null;
+            }
+        }
     }
 }
