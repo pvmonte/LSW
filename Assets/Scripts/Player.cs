@@ -56,6 +56,12 @@ public class Player : MonoBehaviour
     public void HandleMovement(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
+
+        if (context.phase != InputActionPhase.Canceled)
+        {
+            anim.SetFloat("horizontalIdle", movementInput.x);
+            anim.SetFloat("verticalIdle", movementInput.y);
+        }
     }
 
     public void Interact(InputAction.CallbackContext context)
