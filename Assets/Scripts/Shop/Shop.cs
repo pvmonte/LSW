@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private RectTransform slotsParent;
 
     [SerializeField] private List<ShopSlot> slots;
+    [SerializeField] private Button sellButton;
 
     private Inventory playerInventory;
 
@@ -28,20 +30,30 @@ public class Shop : MonoBehaviour
         Vector2 slotsParentSize = slotsParent.sizeDelta;
         slotsParentSize.y = slotsParent.childCount * 110;
         slotsParent.sizeDelta = slotsParentSize;
+
+        sellButton.onClick.AddListener(Sell);
     }
 
     private void Slot_OnClickBuyButton(int index)
     {
-        Item item = Buy(index);
-        playerInventory.AddItem(item);
+        ShopSlot slot = slots[index];
+
+        if (slot.slotItem.price > playerInventory.coins) return;
+
+        Item item = Buy(index, slot);
+        playerInventory.Buy(item);
     }
 
-    public Item Buy(int slotIndex)
+    public Item Buy(int slotIndex, ShopSlot slot)
     {
-        ShopSlot slot = slots[slotIndex];
         Destroy(slot.gameObject);
-        slots.Remove(slot);
-        itemsForSale.RemoveAt(slotIndex);
+        slots[slotIndex] = null;
+        itemsForSale[slotIndex] = null;
         return slot.slotItem;
+    }
+
+    public void Sell()
+    {
+        playerInventory.Sell();
     }
 }
