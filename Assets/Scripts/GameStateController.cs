@@ -6,13 +6,16 @@ using UnityEngine.InputSystem;
 public class GameStateController : MonoBehaviour
 {
     public static GameStateController instance;
-    public GameState state;
+    public IGameState state;
     [SerializeField] private Player _player;
     [SerializeField] private MessagePanel _messagePanel;
+    [SerializeField] private InventoryCanvas _inventoryCanvas;
     [SerializeField] public PlayerInput playerInput;
+    public CanvasUI currentUi { get; private set; }
 
     public Player player => _player;
     public MessagePanel messagePanel => _messagePanel;
+    public InventoryCanvas inventoryCanvas => _inventoryCanvas;
 
     private void Awake()
     {
@@ -47,107 +50,24 @@ public class GameStateController : MonoBehaviour
         state.HandleInteractInput(context);
     }
 
+    public void HandleEscapeInput(InputAction.CallbackContext context)
+    {
+        state.HandleEscapeInput(context);
+    }
+
     public void ResetState()
     {
         state = new StandardGameState(this);
     }
 
-    public void StartNewState(GameState neweState)
+    public void StartNewState(IGameState neweState)
     {
         state = neweState;
     }
-}
 
-public interface GameState
-{
-    void Start();
-    void OnUpdate(float dt);
-    void HandleMovementInput(InputAction.CallbackContext context);
-    void HandleInteractInput(InputAction.CallbackContext context);
-    void End();
-}
-
-public class BaseGameState : GameState
-{
-    public readonly GameStateController gameStateController;
-
-    public BaseGameState(GameStateController gameStateController)
+    public void OpenCanvasUi(CanvasUI canvas)
     {
-        this.gameStateController = gameStateController;
-        if (this.gameStateController.state != null) this.gameStateController.state.End();
-        Start();
-    }
-
-    public virtual void Start() { }
-
-    public virtual void OnUpdate(float dt) { }
-
-    public virtual void HandleMovementInput(InputAction.CallbackContext context) { }
-
-    public virtual void HandleInteractInput(InputAction.CallbackContext context) { }
-
-    public virtual void End() { }
-}
-
-public class StandardGameState : BaseGameState
-{
-    public StandardGameState(GameStateController gameStateController) : base(gameStateController)
-    {
-    }
-
-    public override void Start()
-    {
-
-    }
-
-    public override void OnUpdate(float dt)
-    {
-
-    }
-
-
-
-    public override void HandleMovementInput(InputAction.CallbackContext context)
-    {
-        gameStateController.player.HandleMovement(context);
-    }
-
-    public override void HandleInteractInput(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-            gameStateController.player.Interact(context);
-    }
-
-    public override void End()
-    {
-
-    }
-}
-
-public class ReadingGameState : BaseGameState
-{
-    public ReadingGameState(GameStateController gameStateController) : base(gameStateController)
-    {
-    }
-
-    public override void Start()
-    {
-        gameStateController.messagePanel.gameObject.SetActive(true);
-    }
-
-    public override void OnUpdate(float dt)
-    {
-        //gameStateController.InputHandler.HandleInteractInput();
-    }
-
-    public override void HandleInteractInput(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-            gameStateController.messagePanel.Interact(context);
-    }
-
-    public override void End()
-    {
-        gameStateController.messagePanel.gameObject.SetActive(false);
+        currentUi = canvas;
+        state = new UiOpenedGameState(this);
     }
 }
