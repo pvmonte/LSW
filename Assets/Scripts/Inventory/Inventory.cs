@@ -9,13 +9,15 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Hat equipedHat;
     [SerializeField] private Shirt equipedShirt;
     [SerializeField] private List<Item> items = new List<Item>();
-
+    [field: SerializeField] public int coins { get; private set; }
     private InventorySlot selectedSlot;
 
     public event Action<Item> OnEquip;
 
     private void Start()
     {
+        inventoryWindow.SetCoins(coins);
+
         if (equipedHat)
             EquipHat(equipedHat);
 
@@ -64,17 +66,35 @@ public class Inventory : MonoBehaviour
     public void EquipHat(Hat hat)
     {
         equipedHat = hat;
+        equipedHat.equiped = true;
         inventoryWindow.hatSlot.FillSlot(equipedHat);
     }
 
     public void EquipShirt(Shirt shirt)
     {
         equipedShirt = shirt;
+        equipedShirt.equiped = true;
         inventoryWindow.shirtSlot.FillSlot(equipedShirt);
     }
 
-    public bool Contains(Item item)
+    public void Buy(Item item)
     {
-        return items.Contains(item);
+        AddItem(item);
+        coins -= item.price;
+        inventoryWindow.SetCoins(coins);
+    }
+
+    public void Sell()
+    {
+        if (selectedSlot == null) return;
+
+        Item soldItem = selectedSlot.Item;
+
+        if (soldItem.equiped) return;
+
+        RemoveItem(soldItem);
+        coins += soldItem.price / 2;
+        inventoryWindow.SetCoins(coins);
+        selectedSlot = null;
     }
 }
