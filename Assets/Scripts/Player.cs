@@ -10,10 +10,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed = 1;
     private Animator anim;
 
-    private Interactable interactable;
+    private IInteractable interactable;
 
-    [SerializeField] private SpriteRenderer hatSlot;
-    [SerializeField] private SpriteRenderer shirtSlot;
+    [SerializeField] private Transform hatSlot;
+    [SerializeField] private Transform shirtSlot;
 
     // Start is called before the first frame update
     void Start()
@@ -62,15 +62,25 @@ public class Player : MonoBehaviour
     {
         interactable?.Interact();
     }
-    
+
     public void EquipHat(Hat hat)
     {
-        hatSlot.sprite = hat.icon;
+        if (hatSlot.childCount > 0)
+        {
+            Destroy(hatSlot.GetChild(0).gameObject);
+        }
+
+        Instantiate(hat.prefab, hatSlot);
     }
 
     public void EquipShirt(Shirt shirt)
     {
-        shirtSlot.sprite = shirt.icon;
+        if (shirtSlot.childCount > 0)
+        {
+            Destroy(shirtSlot.GetChild(0).gameObject);
+        }
+
+        Instantiate(shirt.prefab, shirtSlot);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,7 +90,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Interactable>() == interactable)
+        if (collision.gameObject.GetComponent<IInteractable>() == interactable)
             interactable = null;
     }
 }
