@@ -6,6 +6,10 @@ public class CanvasUI : MonoBehaviour
     [SerializeField] protected InventoryWindow window;
     protected RectTransform windowRctTransform;
     [SerializeField] protected Vector3 windowPosition = new Vector3(0, -30, 0);
+    public void ToggleCanvas()
+    {
+        gameObject.SetActive(!gameObject.activeInHierarchy);
+    }
 
     protected void OnEnable()
     {

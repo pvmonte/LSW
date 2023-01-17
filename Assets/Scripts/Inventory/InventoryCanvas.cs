@@ -4,5 +4,4 @@ using UnityEngine.UI;
 
 public class InventoryCanvas : CanvasUI
 {
-    
 }

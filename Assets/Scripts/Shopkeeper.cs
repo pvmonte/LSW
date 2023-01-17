@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shopkeeper : InteractableWithMessage
 {
+    [SerializeField] private CanvasUI shopCanvas;
+
     protected virtual void Start()
     {
         OnPanelInteraction += OpenShop;
@@ -17,6 +19,6 @@ public class Shopkeeper : InteractableWithMessage
 
     private void OpenShop()
     {
-        print("openShop");
+        GameStateController.instance.OpenCanvasUi(shopCanvas);
     }
 }
