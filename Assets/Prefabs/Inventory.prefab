@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4848415928657985868}
   - component: {fileID: 7601283177042916781}
-  - component: {fileID: 4597452212981158905}
+  - component: {fileID: 4529110549170051063}
   m_Layer: 5
   m_Name: Coins
   m_TagString: Untagged
@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 328.34412, y: 246.43}
-  m_SizeDelta: {x: 145.3418, y: 125.72}
+  m_AnchoredPosition: {x: 315.01, y: 246.43}
+  m_SizeDelta: {x: 172.02, y: 125.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7601283177042916781
 CanvasRenderer:
@@ -47,7 +47,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5961796980484220201}
   m_CullTransparentMesh: 1
---- !u!114 &4597452212981158905
+--- !u!114 &4529110549170051063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5961796980484220201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -67,13 +67,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 21300000, guid: a11d40d288273f348828f4875c18f0a6, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 2
 --- !u!1 &7680989714011651408
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,14 +145,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4f12531468e234347b4e762091e342a3, type: 2}
+  m_sharedMaterial: {fileID: -6296661874921033606, guid: 4f12531468e234347b4e762091e342a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -206,7 +209,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8652981597520667971
@@ -294,8 +297,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: a11d40d288273f348828f4875c18f0a6, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -303,7 +306,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2
 --- !u!114 &8652981597520667981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,8 +400,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: a11d40d288273f348828f4875c18f0a6, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -406,7 +409,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2
 --- !u!114 &8652981597827258634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,8 +505,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: a11d40d288273f348828f4875c18f0a6, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -511,7 +514,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2
 --- !u!114 &8652981597901076022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,7 +531,7 @@ MonoBehaviour:
   equipedHat: {fileID: 0}
   equipedShirt: {fileID: 0}
   items: []
-  <coins>k__BackingField: 500
+  <coins>k__BackingField: 150
 --- !u!114 &343168038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8517840379453744585, guid: dc760467cb8125645bf7619ac7816837, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 390.005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8517840379453744585, guid: dc760467cb8125645bf7619ac7816837, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -871,7 +874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8517840379453744585, guid: dc760467cb8125645bf7619ac7816837, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 240.005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8517840379453744585, guid: dc760467cb8125645bf7619ac7816837, type: 3}
       propertyPath: m_AnchoredPosition.y
