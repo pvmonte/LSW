@@ -15,12 +15,19 @@ public class ShopSlot : MonoBehaviour
 
     public event Action<int> OnClickBuyButton;
 
+    private void Start()
+    {
+        
+    }
+
     public void Initilize(Item item, int index)
     {
         slotItem = item;
         itemIcon.sprite = item.icon;
         priceLabel.text = item.price.ToString();
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
         buyButton.onClick.AddListener(BuyButtonClick);
+        buyButton.onClick.AddListener(audioManager.PlayUIClick);
         indexInShop = index;
     }
 
